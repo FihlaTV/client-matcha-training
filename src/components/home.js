@@ -15,21 +15,23 @@ class Home extends Component {
             <h1>Sign Up</h1>
 
             <form action="/" method="post">
-            <div class="top-row">
-          <div class="field-wrap">
-            <label>
-              First Name<span class="req">*</span>
-            </label>
-            <input type="text" required autocomplete="off" />
-          </div>
-
-          <div class="field-wrap">
-            <label>
-              Last Name<span class="req">*</span>
-            </label>
-            <input type="text"required autocomplete="off"/>
-          </div>
-        </div>
+              <div className="top-row">
+                <div className="field-wrap">
+                  <input type="text" required autoComplete="off" placeholder="First Name" />
+                </div>
+                <div className="field-wrap">
+                  <input type="text" required autoComplete="off" placeholder="Last Name" />
+                </div>
+              </div>
+              <div className="field-wrap">
+                <input type="text" required autoComplete="off" placeholder="User Name" />
+              </div>
+              <div className="field-wrap">
+                <input type="text" required autoComplete="off" placeholder="Password" />
+              </div>
+              <div className="field-wrap">
+                <input type="text" required autoComplete="off" placeholder="Repeat Password" />
+              </div>
             </form>
           </div>
         </div>
