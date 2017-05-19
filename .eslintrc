@@ -1,0 +1,9 @@
+{
+    "extends": "airbnb",
+    "env": {
+      "browser": false,
+    },
+    "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    }
+}
