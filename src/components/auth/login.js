@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import './auth.scss';
 
 class Login extends Component {
   render() {
     return (
-      <div>
-        Login Form
-      </div>
+      <form className="RegisterForm">
+      </form>
     );
   }
 }
