@@ -5,10 +5,7 @@ import registerServiceWorker from './registerServiceWorker';
 import Root from './components/Root';
 import Authentication from './components/Authentication';
 // import Home from './components/Home';
-import './index.scss';
 
-// <Route exact path="/login" component={Login} />
-// <Route path="/register" component={Register} />
 render((
   <Router>
     <div>

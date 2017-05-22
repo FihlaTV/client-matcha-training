@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, Route } from 'react-router-dom';
-import Login from '../auth/Login';
-import Register from '../auth/Register';
+import Login from './Login';
+import Register from './Register';
 import '../sass/home.css';
 
 const Authentication = ({ match }) => (

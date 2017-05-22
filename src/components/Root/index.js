@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import api from '../../api';
+import Api from '../../Api';
 
 class Root extends Component {
   state = {
@@ -8,7 +8,7 @@ class Root extends Component {
   }
 
   componentWillMount() {
-    api.checkAuthentication()
+    Api.checkAuthentication()
       .then(({ data }) => {
         if (data.status === 'success') {
           this.setState({ isUserLoggedIn: true });
