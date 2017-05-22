@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ErrorMsg from '../ErrorMsg';
 
 class Register extends Component {
   state = {
@@ -24,9 +25,10 @@ class Register extends Component {
       password,
       repassword,
     } = this.state;
-    if (password !== repassword)
-      console.log(this);
+    // if (password !== repassword)
+    //   ''
   }
+
   render() {
     const {
       firstname,
@@ -36,9 +38,9 @@ class Register extends Component {
       password,
       repassword,
     } = this.state;
-
     return (
       <div className="Signup">
+        <ErrorMsg msg={this.ErrorMsg} />
         <h1>Sign Up</h1>
         <form>
           <div className="top-row">
