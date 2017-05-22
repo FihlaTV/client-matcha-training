@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, Route } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
+import ErrorMsg from '../ErrorMsg';
 import '../sass/home.css';
 
+// class Authentication FROM
 const Authentication = ({ match }) => (
   <div className="Home">
     <div className="Mainform">
@@ -16,7 +18,6 @@ const Authentication = ({ match }) => (
           <NavLink activeClassName="active" to={`${match.path}/login`}>Sign In</NavLink>
         </li>
       </ul>
-      {console.log(match.path)}
       <Route path={`${match.path}/login`} component={Login} />
       <Route path={`${match.path}/register`} component={Register} />
     </div>

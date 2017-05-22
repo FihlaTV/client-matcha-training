@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import Root from './components/Root';
+import ErrorMsg from './components/ErrorMsg';
 import Authentication from './components/Authentication';
 // import Home from './components/Home';
 
