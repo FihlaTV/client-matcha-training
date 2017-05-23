@@ -4,10 +4,13 @@ import { NavLink, Route } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import ErrorMsg from '../ErrorMsg';
-import '../sass/home.css';
+// import '../sass/home.css';
+// const Regis = <Register myProp={myProp} {...defaultProps} />
+const Regis = <Register ErrorMsg='d' />
 
 const Authentication = ({ match }) => (
   <div className="Home">
+
     <div className="Mainform">
       <ul className="Navheaderbar">
         <li className="Navheaderbrand active">
@@ -18,7 +21,7 @@ const Authentication = ({ match }) => (
         </li>
       </ul>
       <Route path={`${match.path}/login`} component={Login} />
-      <Route path={`${match.path}/register`} component={Register} />
+      <Route path={`${match.path}/register`} component={Regis} />
     </div>
   </div>
 );

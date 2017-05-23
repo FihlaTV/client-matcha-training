@@ -25,8 +25,8 @@ class Register extends Component {
       password,
       repassword,
     } = this.state;
-    // if (password !== repassword)
-    //   ''
+    if (password !== repassword)
+      ;
   }
 
   render() {
