@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ErrorMsg } from '../Msg';
-import { getLogin } from '../../Api';
+import { getLogin, setAuthorizationToken } from '../../Api/auth';
 
 class Login extends Component {
   state = {
@@ -29,7 +29,9 @@ class Login extends Component {
     delete info.errmsg;
     getLogin(info)
       .then(({ data }) => {
-        console.log(data);
+        const token = data.token;
+        localStorage.setItem('jwtToken', token);
+        setAuthorizationToken(token);
         if (data.status === 'success') {
           console.log('success');
         } else {

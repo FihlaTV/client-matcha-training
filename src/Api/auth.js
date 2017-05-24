@@ -2,9 +2,11 @@ import axios from 'axios';
 
 const baseURL = 'http://localhost:8080';
 
+// export const checkAuthentication = () => axios(`${baseURL}/api/check_authenticate`);
+
 export const checkAuthentication = () => axios({
   method: 'GET',
-  url: `${baseURL}/api/check_authenticate`,
+  url: `${baseURL}/api/auth/check_authenticate`,
 });
 
 export const getRegister = info => axios({
@@ -24,3 +26,11 @@ export const getLogin = info => axios({
   data: info,
   url: `${baseURL}/api/auth/login`,
 });
+
+export const setAuthorizationToken = (token) => {
+  if (token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  } else {
+    delete axios.defaults.headers.common.Authorization;
+  }
+};

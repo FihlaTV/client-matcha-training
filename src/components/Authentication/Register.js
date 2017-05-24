@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { ErrorMsg } from '../Msg';
-import { getRegister } from '../../Api';
+import { getRegister } from '../../Api/auth';
 
 class Register extends Component {
   state = {

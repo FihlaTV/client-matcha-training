@@ -3,16 +3,18 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import Root from './components/Root';
-// import ErrorMsg from './components/ErrorMsg';
+import { setAuthorizationToken } from './Api/auth';
 import Authentication from './components/Authentication';
-// import Home from './components/Home';
+import Home from './components/Home';
 
+setAuthorizationToken(localStorage.jwtToken);
+console.log(localStorage);
 render((
   <Router>
     <div>
       <Route exact path="/" component={Root} />
       <Route path="/auth" component={Authentication} />
-      {/* <Route path="/home" component={Home} /> */}
+      <Route path="/home" component={Home} />
     </div>
   </Router>
 ), document.getElementById('root'));

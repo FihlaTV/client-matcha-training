@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { PropTypes } from 'prop-types';
 import { ErrorMsg, SuccessMsg } from '../Msg';
-import { confirmUser } from '../../Api';
+import { confirmUser } from '../../Api/auth';
 
 class ConfirmUser extends Component{
   state = {
