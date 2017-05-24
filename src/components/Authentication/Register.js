@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import ErrorMsg from '../ErrorMsg';
+import { Redirect } from 'react-router';
+import { ErrorMsg } from '../Msg';
+import { getRegister } from '../../Api';
 
 class Register extends Component {
   state = {
+    registerSuccess: false,
     firstname: '',
     lastname: '',
-    username: '',
+    login: '',
     email: '',
     password: '',
-    repassword: '',
+    ErrMsg: '',
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -20,49 +23,47 @@ class Register extends Component {
     const {
       firstname,
       lastname,
-      username,
+      login,
       email,
       password,
-      repassword,
     } = this.state;
-    if (password !== repassword)
-      ;
+    if (!(login || firstname || lastname || email || password )) { return (this.setState({ ErrMsg: 'The form should not contians empty value' })); }
+    if (login === password) { return (this.setState({ ErrMsg: 'Username and Password should be different' })); }
+    const info = { ...this.state };
+    delete info.ErrMsg;
+    delete info.registerSuccess;
+    getRegister( info )
+    .then(({ data }) => {
+      if (data.status === 'success') {
+        this.setState({ registerSuccess: true });
+      } else {
+        this.setState({ ErrMsg: data.details });
+      }
+    });
   }
 
   render() {
     const {
-      firstname,
-      lastname,
-      username,
-      email,
-      password,
-      repassword,
+      registerSuccess,
+      ErrMsg,
     } = this.state;
     return (
       <div className="Signup">
-        <ErrorMsg msg={this.ErrorMsg} />
+        {ErrMsg && <ErrorMsg msg={ErrMsg} />}
         <h1>Sign Up</h1>
-        <form>
+        <form onChange={this.handleChange}>
           <div className="top-row">
             <div className="field-wrap">
               <input
                 type="text"
-                required
-                autoComplete="on"
                 placeholder="First Name"
-                value={firstname}
-                onChange={this.handleChange}
                 name="firstname"
               />
             </div>
             <div className="field-wrap">
               <input
                 type="text"
-                required
-                autoComplete="on"
                 placeholder="Last Name"
-                value={lastname}
-                onChange={this.handleChange}
                 name="lastname"
               />
             </div>
@@ -70,53 +71,35 @@ class Register extends Component {
           <div className="field-wrap">
             <input
               type="text"
-              required
-              autoComplete="on"
               placeholder="User Name"
-              value={username}
-              onChange={this.handleChange}
-              name="username"
+              name="login"
             />
           </div>
           <div className="field-wrap">
             <input
               type="email"
-              required
-              autoComplete="on"
               placeholder="E-Mail"
-              value={email}
-              onChange={this.handleChange}
               name="email"
             />
           </div>
           <div className="field-wrap">
             <input
               type="password"
-              required
-              autoComplete="on"
               placeholder="Password"
-              value={password}
-              onChange={this.handleChange}
               name="password"
             />
           </div>
-          <div className="field-wrap">
-            <input
-              type="password"
-              required
-              autoComplete="on"
-              placeholder="Repeat Password"
-              value={repassword}
-              onChange={this.handleChange}
-              name="repassword"
-            />
-          </div>
-          <button
+          <input
             type="submit"
             className="button button-block"
             onClick={this.register}
-          >Get Started</button>
+            value="Get Started"
+          />
         </form>
+        { registerSuccess && <Redirect to={{
+          pathname: 'confirmuser',
+          state: { ...registerSuccess, msg: 'Successfully Registered - Need to check your mailbox for confirmation' } }}
+        /> }
       </div>
     );
   }

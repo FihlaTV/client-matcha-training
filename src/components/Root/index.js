@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import Api from '../../Api';
+import * as Api from '../../Api';
 
 class Root extends Component {
   state = {
