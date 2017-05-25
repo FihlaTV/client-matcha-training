@@ -12,7 +12,7 @@ console.log(localStorage);
 render((
   <Router>
     <div>
-      <Route exact path="/" component={Root} />
+      <Route path="/" component={Root} />
       <Route path="/auth" component={Authentication} />
       <Route path="/home" component={Home} />
     </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { ErrorMsg } from '../Msg';
+import { ErrorMsg, SuccessMsg } from '../Msg';
 import { getLogin, setAuthorizationToken } from '../../Api/auth';
+import { PropTypes } from 'prop-types';
 
 class Login extends Component {
   state = {
@@ -29,13 +30,14 @@ class Login extends Component {
     delete info.errmsg;
     getLogin(info)
       .then(({ data }) => {
-        const token = data.token;
-        localStorage.setItem('jwtToken', token);
-        setAuthorizationToken(token);
         if (data.status === 'success') {
+          const token = data.token;
+          localStorage.setItem('jwtToken', token);
+          setAuthorizationToken(token);
           console.log('success');
+          window.location.reload();
         } else {
-          console.log('failed');
+          this.setState({ errmsg: data.details });
         }
       });
   }
@@ -43,9 +45,12 @@ class Login extends Component {
     const {
       errmsg,
     } = this.state;
+    let successmsg;
+    if (this.props.location.state) { successmsg = this.props.location.state.msg; }
     return (
       <div className="Login">
-        {errmsg && <ErrorMsg msg={errmsg} /> }
+        { successmsg && <SuccessMsg msg={successmsg} />}
+        { errmsg && <ErrorMsg msg={errmsg} /> }
         <h1>Log In</h1>
         <form onChange={this.handleChange}>
           <div className="field-wrap">
@@ -75,5 +80,8 @@ class Login extends Component {
   }
 }
 
+Login.propTypes = {
+  location: PropTypes.object.isRequired,
+};
 
 export default Login;

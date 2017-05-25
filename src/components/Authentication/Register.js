@@ -27,14 +27,19 @@ class Register extends Component {
       email,
       password,
     } = this.state;
-    if (!(login || firstname || lastname || email || password )) { return (this.setState({ ErrMsg: 'The form should not contians empty value' })); }
+    if (!(login || firstname || lastname || email || password)) {
+      return (this.setState({ ErrMsg: 'The form should not contians empty value' }));
+    }
     if (login === password) { return (this.setState({ ErrMsg: 'Username and Password should be different' })); }
     const info = { ...this.state };
     delete info.ErrMsg;
     delete info.registerSuccess;
-    getRegister( info )
+    getRegister(info)
     .then(({ data }) => {
+      console.log('jesuispasdedans');
+      console.log(data);
       if (data.status === 'success') {
+        console.log('jesuisdedans');
         this.setState({ registerSuccess: true });
       } else {
         this.setState({ ErrMsg: data.details });
@@ -47,6 +52,7 @@ class Register extends Component {
       registerSuccess,
       ErrMsg,
     } = this.state;
+    // console.log(this.state);
     return (
       <div className="Signup">
         {ErrMsg && <ErrorMsg msg={ErrMsg} />}
