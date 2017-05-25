@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import { checkAuthentication } from '../../Api/auth';
-import { ErrorMsg, SuccessMsg } from '../Utils/FlashMessage';
+import { checkAuthentication } from '../../CallApi';
+import { ErrorMsg, SuccessMsg } from '../Flash';
 
 class Root extends Component {
   state = {
@@ -12,7 +12,6 @@ class Root extends Component {
   componentWillMount() {
     checkAuthentication()
       .then(({ data }) => {
-        console.log(data.status);
         if (data.status === 'success') {
           this.setState({ isUserLoggedIn: true });
         } else {
@@ -24,7 +23,6 @@ class Root extends Component {
 
   render() {
     const { isUserLoggedIn } = this.state;
-    console.log(isUserLoggedIn);
     const { pathname } = this.props.location;
     return (
       <div>
@@ -42,4 +40,5 @@ class Root extends Component {
 Root.propTypes = {
   location: PropTypes.object.isRequired,
 };
+
 export default Root;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { getForgetPassword } from '../../Api/auth';
+import { InputText } from '../InputText';
+import { getForgetPassword } from '../../CallApi';
 
 class ForgetPassword extends Component {
   state = {
@@ -30,9 +31,7 @@ class ForgetPassword extends Component {
       <div className="Login">
         <h1>Forget Password</h1>
         <form onChange={this.handleChange}>
-          <div className="field-wrap">
-            <input type="email" placeholder="E-Mail" name="email" />
-          </div>
+          <InputText type="email" placeholder="E-Mail" name="email" />
           <input
             type="submit"
             className="button button-block"

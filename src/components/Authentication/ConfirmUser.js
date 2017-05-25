@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { Redirect } from 'react-router';
 import _ from 'lodash';
-import { confirmUser } from '../../Api/auth';
+import { InputText } from '../InputText';
+import { confirmUser } from '../../CallApi';
 
 class ConfirmUser extends Component {
   state = {
@@ -18,7 +19,6 @@ class ConfirmUser extends Component {
   Query = (e) => {
     e.preventDefault();
     const info = _.pick(this.state, ['login', 'token']);
-    console.log(info);
     confirmUser(info).then(({ data }) => {
       if (data.status === 'success') {
         this.setState({ Confirmed: true });
@@ -34,12 +34,8 @@ class ConfirmUser extends Component {
       <div className="Login">
         <h1>Confirm User</h1>
         <form onChange={this.handleChange}>
-          <div className="field-wrap">
-            <input type="text" placeholder="User Name" name="login" />
-          </div>
-          <div className="field-wrap">
-            <input type="text" name="token" placeholder="Enter the Code" />
-          </div>
+          <InputText placeholder="User Name" name="login" />
+          <InputText placeholder="Enter the Code" name="token" />
           <button type="submit" className="button button-block" onClick={this.Query}>
             Send
           </button>

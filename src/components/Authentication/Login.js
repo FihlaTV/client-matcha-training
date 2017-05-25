@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import { getLogin } from '../../Api/auth';
+import { getLogin } from '../../CallApi';
+import { InputText } from '../InputText';
 
 class Login extends Component {
   state = {
@@ -33,12 +34,8 @@ class Login extends Component {
       <div className="Login">
         <h1>Log In</h1>
         <form onChange={this.handleChange}>
-          <div className="field-wrap">
-            <input type="text" placeholder="User Name" name="login" />
-          </div>
-          <div className="field-wrap">
-            <input type="password" required placeholder="Password" name="password" />
-          </div>
+          <InputText placeholder="User Name" name="login" />
+          <InputText type="password" placeholder="Password" name="password" />
           <input
             type="submit"
             className="button button-block"
@@ -51,8 +48,6 @@ class Login extends Component {
             <NavLink activeClassName="active" to={'forgetpassword'}>Reset Password</NavLink>
           </li>
         </ul>
-        {/* <input type="submit" className="button-small" value="Reset Password"
-        onClick={}/> */}
       </div>
     );
   }

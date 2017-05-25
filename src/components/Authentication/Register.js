@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { Redirect } from 'react-router';
-import { getRegister } from '../../Api/auth';
+import { InputText } from '../InputText';
+import { getRegister } from '../../CallApi/';
 
 class Register extends Component {
   state = {
@@ -36,22 +37,12 @@ class Register extends Component {
         <h1>Sign Up</h1>
         <form onChange={this.handleChange}>
           <div className="top-row">
-            <div className="field-wrap">
-              <input type="text" placeholder="First Name" name="firstname" />
-            </div>
-            <div className="field-wrap">
-              <input type="text" placeholder="Last Name" name="lastname" />
-            </div>
+            <InputText placeholder="Last Name" name="lastname" />
+            <InputText placeholder="First Name" name="firstname" />
           </div>
-          <div className="field-wrap">
-            <input type="text" placeholder="User Name" name="login" />
-          </div>
-          <div className="field-wrap">
-            <input type="email" placeholder="E-Mail" name="email" />
-          </div>
-          <div className="field-wrap">
-            <input type="password" placeholder="Password" name="password" />
-          </div>
+          <InputText placeholder="User Name" name="login" />
+          <InputText type="email" placeholder="E-mail" name="email" />
+          <InputText type="password" placeholder="Password" name="password" />
           <input
             type="submit"
             className="button button-block"

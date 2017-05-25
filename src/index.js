@@ -6,8 +6,6 @@ import Root from './components/Root';
 import Authentication from './components/Authentication';
 import Home from './components/Home';
 
-console.log(localStorage);
-
 render(
   <Router>
     <div>
