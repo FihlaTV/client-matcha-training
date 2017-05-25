@@ -5,4 +5,4 @@ export const Logout = () => {
   setAuthorizationToken(false);
 };
 
-// export default Logout;
+// export default { Logout };
