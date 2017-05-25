@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { Redirect } from 'react-router';
 import { ErrorMsg } from '../Msg';
 import { getRegister } from '../../Api/auth';
@@ -20,33 +21,29 @@ class Register extends Component {
 
   register = (e) => {
     e.preventDefault();
-    const {
-      firstname,
-      lastname,
-      login,
-      email,
-      password,
-    } = this.state;
-    if (!(login || firstname || lastname || email || password )) { return (this.setState({ ErrMsg: 'The form should not contians empty value' })); }
-    if (login === password) { return (this.setState({ ErrMsg: 'Username and Password should be different' })); }
-    const info = { ...this.state };
-    delete info.ErrMsg;
-    delete info.registerSuccess;
-    getRegister( info )
-    .then(({ data }) => {
+    const { firstname, lastname, login, email, password } = this.state;
+    if (!(login || firstname || lastname || email || password)) {
+      return this.setState({ ErrMsg: 'The form should not contians empty value' });
+    }
+    if (login === password) {
+      return this.setState({ ErrMsg: 'Username and Password should be different' });
+    }
+    const info = _.omit(this.state, ['registerSuccess', 'ErrMsg']);
+    getRegister(info).then(({ data }) => {
+      console.log('jesuispasdedans');
+      console.log(data);
       if (data.status === 'success') {
+        console.log('jesuisdedans');
         this.setState({ registerSuccess: true });
       } else {
         this.setState({ ErrMsg: data.details });
       }
     });
-  }
+  };
 
   render() {
-    const {
-      registerSuccess,
-      ErrMsg,
-    } = this.state;
+    const { registerSuccess, ErrMsg } = this.state;
+    // console.log(this.state);
     return (
       <div className="Signup">
         {ErrMsg && <ErrorMsg msg={ErrMsg} />}
@@ -54,40 +51,20 @@ class Register extends Component {
         <form onChange={this.handleChange}>
           <div className="top-row">
             <div className="field-wrap">
-              <input
-                type="text"
-                placeholder="First Name"
-                name="firstname"
-              />
+              <input type="text" placeholder="First Name" name="firstname" />
             </div>
             <div className="field-wrap">
-              <input
-                type="text"
-                placeholder="Last Name"
-                name="lastname"
-              />
+              <input type="text" placeholder="Last Name" name="lastname" />
             </div>
           </div>
           <div className="field-wrap">
-            <input
-              type="text"
-              placeholder="User Name"
-              name="login"
-            />
+            <input type="text" placeholder="User Name" name="login" />
           </div>
           <div className="field-wrap">
-            <input
-              type="email"
-              placeholder="E-Mail"
-              name="email"
-            />
+            <input type="email" placeholder="E-Mail" name="email" />
           </div>
           <div className="field-wrap">
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-            />
+            <input type="password" placeholder="Password" name="password" />
           </div>
           <input
             type="submit"
@@ -96,10 +73,16 @@ class Register extends Component {
             value="Get Started"
           />
         </form>
-        { registerSuccess && <Redirect to={{
-          pathname: 'confirmuser',
-          state: { ...registerSuccess, msg: 'Successfully Registered - Need to check your mailbox for confirmation' } }}
-        /> }
+        {registerSuccess &&
+          <Redirect
+            to={{
+              pathname: 'confirmuser',
+              state: {
+                ...registerSuccess,
+                msg: 'Successfully Registered - Need to check your mailbox for confirmation',
+              },
+            }}
+          />}
       </div>
     );
   }

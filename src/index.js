@@ -7,15 +7,17 @@ import { setAuthorizationToken } from './Api/auth';
 import Authentication from './components/Authentication';
 import Home from './components/Home';
 
-setAuthorizationToken(localStorage.jwtToken);
+setAuthorizationToken(localStorage.getItem('jwtToken'));
 console.log(localStorage);
-render((
+
+render(
   <Router>
     <div>
-      <Route exact path="/" component={Root} />
+      <Route path="/" component={Root} />
       <Route path="/auth" component={Authentication} />
       <Route path="/home" component={Home} />
     </div>
-  </Router>
-), document.getElementById('root'));
+  </Router>,
+  document.getElementById('root'),
+);
 registerServiceWorker();
