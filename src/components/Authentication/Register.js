@@ -43,7 +43,6 @@ class Register extends Component {
 
   render() {
     const { registerSuccess, ErrMsg } = this.state;
-    // console.log(this.state);
     return (
       <div className="Signup">
         {ErrMsg && <ErrorMsg msg={ErrMsg} />}

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { ErrorMsg, SuccessMsg } from '../Msg';
 import { getLogin, setAuthorizationToken } from '../../Api/auth';
+import { PropTypes } from 'prop-types';
 
 class Login extends Component {
   state = {
