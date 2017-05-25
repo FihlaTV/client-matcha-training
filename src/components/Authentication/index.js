@@ -4,6 +4,8 @@ import { NavLink, Route } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import ConfirmUser from './ConfirmUser';
+import ForgetPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword';
 import '../sass/home.css';
 
 const Authentication = ({ match: { path } }) => (
@@ -20,6 +22,8 @@ const Authentication = ({ match: { path } }) => (
       <Route path={`${path}/login`} component={Login} />
       <Route path={`${path}/register`} component={Register} />
       <Route path={`${path}/confirmuser`} component={ConfirmUser} />
+      <Route path={`${path}/forgetpassword`} component={ForgetPassword} />
+      <Route path={`${path}/resetpassword`} component={ResetPassword} />
     </div>
   </div>
 );

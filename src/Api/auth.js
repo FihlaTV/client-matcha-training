@@ -1,36 +1,57 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8080';
+const baseURL = 'http://localhost:8080/api';
 
-// export const checkAuthentication = () => axios(`${baseURL}/api/check_authenticate`);
-
-export const checkAuthentication = () => axios({
-  method: 'GET',
-  url: `${baseURL}/api/auth/check_authenticate`,
+const api = axios.create({
+  baseURL,
 });
 
-export const getRegister = info => axios({
-  method: 'POST',
-  data: info,
-  url: `${baseURL}/api/auth/register`,
-});
+api.interceptors.request.use(config => ({
+  ...config,
+  headers: {
+    ...config.headers,
+    Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+  },
+}));
 
-export const confirmUser = info => axios({
-  method: 'PUT',
-  data: info,
-  url: `${baseURL}/api/auth/confirmuser`,
-});
+export const checkAuthentication = () =>
+  api({
+    method: 'GET',
+    url: '/auth/check_authenticate',
+  });
 
-export const getLogin = info => axios({
-  method: 'POST',
-  data: info,
-  url: `${baseURL}/api/auth/login`,
-});
+export const getRegister = info =>
+  api({
+    method: 'POST',
+    data: info,
+    url: '/auth/register',
+  });
 
-export const setAuthorizationToken = (token) => {
-  if (token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  } else {
-    delete axios.defaults.headers.common.Authorization;
-  }
-};
+export const confirmUser = info =>
+  api({
+    method: 'PUT',
+    data: info,
+    url: '/auth/confirmuser',
+  });
+
+export const getLogin = info =>
+  api({
+    method: 'POST',
+    data: info,
+    url: '/auth/login',
+  }).then((response) => {
+    console.log(info);
+    // console.log(response);
+    if (response.data.status === 'success') {
+      localStorage.setItem('jwtToken', response.data.token);
+      console.log(localStorage);
+    }
+    return response;
+  });
+
+export const getForgetPassword = info =>
+  api({
+    method: 'POST',
+    data: info,
+    url: '/auth/resetpassword',
+  });

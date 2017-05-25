@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { ErrorMsg, SuccessMsg } from '../Msg';
-import { getLogin, setAuthorizationToken } from '../../Api/auth';
+import { NavLink, Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
+import { getLogin } from '../../Api/auth';
 
 class Login extends Component {
   state = {
-    errmsg: '',
     login: '',
     password: '',
     isUserLoggedIn: false,
@@ -16,38 +14,23 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  QueryLogin = (evt) => {
+  Query = (evt) => {
     evt.preventDefault();
-    const { login, password } = this.state;
-    if (!/^[A-Za-z ]{2,30}$/.test(login)) {
-      return this.setState({ errmsg: 'Wrong Login Format' });
-    }
-    if (!password) {
-      return this.setState({ errmsg: 'Password is empty' });
-    }
-    const formData = { login, password };
+    const formData = { login: this.state.login, password: this.state.password };
     getLogin(formData).then(({ data }) => {
-      if (data.status === 'success') {
-        const token = data.token;
-        localStorage.setItem('jwtToken', token);
-        setAuthorizationToken(token);
-        this.setState({ isUserLoggedIn: true });
-      } else {
-        this.setState({ errmsg: data.details });
-      }
+      console.log(formData);
+      // if (data.status === 'success') {
+      //
+      // this.setState({ isUserLoggedIn: true });
+      // } else {
+      // }
     });
   };
+
   render() {
-    const { errmsg } = this.state;
-    let successmsg;
-    if (this.props.location.state) {
-      successmsg = this.props.location.state.msg;
-    }
     if (this.state.isUserLoggedIn === true) return <Redirect to="" />;
     return (
       <div className="Login">
-        {successmsg && <SuccessMsg msg={successmsg} />}
-        {errmsg && <ErrorMsg msg={errmsg} />}
         <h1>Log In</h1>
         <form onChange={this.handleChange}>
           <div className="field-wrap">
@@ -60,9 +43,16 @@ class Login extends Component {
             type="submit"
             className="button button-block"
             value="Log In"
-            onClick={this.QueryLogin}
+            onClick={this.Query}
           />
         </form>
+        <ul className="Navheaderbar">
+          <li className="Navheaderbrand">
+            <NavLink activeClassName="active" to={'forgetpassword'}>Reset Password</NavLink>
+          </li>
+        </ul>
+        {/* <input type="submit" className="button-small" value="Reset Password"
+        onClick={}/> */}
       </div>
     );
   }

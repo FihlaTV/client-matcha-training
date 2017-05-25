@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.1",
-    "flow": "^0.2.3",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",

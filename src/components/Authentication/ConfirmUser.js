@@ -1,64 +1,56 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
 import { PropTypes } from 'prop-types';
-import { ErrorMsg, SuccessMsg } from '../Msg';
+import { Redirect } from 'react-router';
+import _ from 'lodash';
 import { confirmUser } from '../../Api/auth';
 
-class ConfirmUser extends Component{
+class ConfirmUser extends Component {
   state = {
     Confirmed: false,
     login: '',
     token: '',
-    ErrMsg: '',
-  }
+  };
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
 
-  QueryConfirmUser = (e) => {
+  Query = (e) => {
     e.preventDefault();
-    const info = { ...this.state };
-    delete info.ErrMsg;
-    delete info.Confirmed;
+    const info = _.pick(this.state, ['login', 'token']);
     console.log(info);
-    confirmUser(info)
-    .then(({ data }) => {
+    confirmUser(info).then(({ data }) => {
       if (data.status === 'success') {
-        this.setState({ Confirmed: true })
+        this.setState({ Confirmed: true });
       } else {
-        this.setState({ ErrMsg: data.details });
+        // this.setState({ ErrMsg: data.details });
       }
-    })
-  }
+    });
+  };
 
   render() {
-    const { ErrMsg, Confirmed } = this.state;
-    let successmsg;
-    if (this.props.location.state) { successmsg = this.props.location.state.msg; }
+    const { Confirmed } = this.state;
     return (
       <div className="Login">
-        { successmsg && <SuccessMsg msg={successmsg} />}
-        { ErrMsg && <ErrorMsg msg={ErrMsg} />}
         <h1>Confirm User</h1>
         <form onChange={this.handleChange}>
           <div className="field-wrap">
-            <input
-              type="text"
-              placeholder="User Name"
-              name="login"
-            />
+            <input type="text" placeholder="User Name" name="login" />
           </div>
           <div className="field-wrap">
-            <input
-              type="text"
-              name="token"
-              placeholder="Enter the Code"
-            />
+            <input type="text" name="token" placeholder="Enter the Code" />
           </div>
-          <button type="submit" className="button button-block" onClick={this.QueryConfirmUser}>Send</button>
+          <button type="submit" className="button button-block" onClick={this.Query}>
+            Send
+          </button>
         </form>
-        {Confirmed && <Redirect to={{ pathname: 'login', state: { ...Confirmed, msg: 'Successfully Confirmed - You can now Login' } }} /> }
+        {Confirmed &&
+          <Redirect
+            to={{
+              pathname: 'login',
+              state: { ...Confirmed, msg: 'Successfully Confirmed - You can now Login' },
+            }}
+          />}
       </div>
     );
   }
@@ -67,4 +59,5 @@ class ConfirmUser extends Component{
 ConfirmUser.propTypes = {
   location: PropTypes.object.isRequired,
 };
+
 export default ConfirmUser;

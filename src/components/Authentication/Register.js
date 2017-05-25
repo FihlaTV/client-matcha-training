@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { Redirect } from 'react-router';
-import { ErrorMsg } from '../Msg';
 import { getRegister } from '../../Api/auth';
 
 class Register extends Component {
@@ -12,28 +11,17 @@ class Register extends Component {
     login: '',
     email: '',
     password: '',
-    ErrMsg: '',
   };
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
 
-  register = (e) => {
+  Query = (e) => {
     e.preventDefault();
-    const { firstname, lastname, login, email, password } = this.state;
-    if (!(login || firstname || lastname || email || password)) {
-      return this.setState({ ErrMsg: 'The form should not contians empty value' });
-    }
-    if (login === password) {
-      return this.setState({ ErrMsg: 'Username and Password should be different' });
-    }
     const info = _.omit(this.state, ['registerSuccess', 'ErrMsg']);
     getRegister(info).then(({ data }) => {
-      console.log('jesuispasdedans');
-      console.log(data);
       if (data.status === 'success') {
-        console.log('jesuisdedans');
         this.setState({ registerSuccess: true });
       } else {
         this.setState({ ErrMsg: data.details });
@@ -42,10 +30,9 @@ class Register extends Component {
   };
 
   render() {
-    const { registerSuccess, ErrMsg } = this.state;
+    const { registerSuccess } = this.state;
     return (
       <div className="Signup">
-        {ErrMsg && <ErrorMsg msg={ErrMsg} />}
         <h1>Sign Up</h1>
         <form onChange={this.handleChange}>
           <div className="top-row">
@@ -68,7 +55,7 @@ class Register extends Component {
           <input
             type="submit"
             className="button button-block"
-            onClick={this.register}
+            onClick={this.Query}
             value="Get Started"
           />
         </form>
