@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import queryString from 'query-string';
+import { PropTypes } from 'prop-types';
 import { Redirect } from 'react-router-dom';
-// import { getResetPassword } from '../../Api/auth';
+import { getResetPassword } from '../../CallApi';
 
 class ResetPassword extends Component {
   state = {
-    email: '',
+    password: '',
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -13,16 +15,16 @@ class ResetPassword extends Component {
 
   Query = (e) => {
     e.preventDefault();
-    console.log(this);
-    // const formData = { email: this.state.email };
-    // // getResetPassword(formData).then(({ data }) => {
-    // //   console.log(data);
-    // //   // if (data.status === 'success') {
-    // //   //   con
-    // //   // } else {
-    // //   //   // this.setState({ errmsg: data.details });
-    // //   // }
-    // });
+    const parsed = queryString.parse(this.props.location.search);
+    const form = { password: this.state.password, token: parsed.token };
+    getResetPassword(form).then(({ data }) => {
+      console.log(data);
+      if (data.status === 'success') {
+        // this.setState({ registerSuccess: true });
+      } else {
+        // this.setState({ ErrMsg: data.details });
+      }
+    });
   };
 
   render() {
@@ -30,7 +32,7 @@ class ResetPassword extends Component {
     return (
       <div className="Login">
         <h1>Reset Password</h1>
-        {/* <form onChange={this.handleChange}>
+        <form onChange={this.handleChange}>
           <div className="field-wrap">
             <input type="password" placeholder="Password" name="password" />
           </div>
@@ -40,10 +42,13 @@ class ResetPassword extends Component {
             value="Log In"
             onClick={this.Query}
           />
-        </form> */}
+        </form>
       </div>
     );
   }
 }
 
+ResetPassword.propTypes = {
+  location: PropTypes.object.isRequired,
+};
 export default ResetPassword;

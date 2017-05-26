@@ -4,7 +4,7 @@ import { NavLink, Route } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import ConfirmUser from './ConfirmUser';
-import ForgetPassword from './ForgotPassword';
+import ForgetPassword from './ForgetPassword';
 import ResetPassword from './ResetPassword';
 import '../sass/home.css';
 

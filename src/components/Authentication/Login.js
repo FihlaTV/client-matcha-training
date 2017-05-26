@@ -47,6 +47,9 @@ class Login extends Component {
           <li className="Navheaderbrand">
             <NavLink activeClassName="active" to={'forgetpassword'}>Reset Password</NavLink>
           </li>
+          <li className="Navheaderbrand">
+            <NavLink activeClassName="active" to={'confirmuser'}>Confirm User</NavLink>
+          </li>
         </ul>
       </div>
     );

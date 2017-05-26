@@ -22,10 +22,11 @@ class Register extends Component {
     e.preventDefault();
     const info = _.omit(this.state, ['registerSuccess', 'ErrMsg']);
     getRegister(info).then(({ data }) => {
+      console.log(data);
       if (data.status === 'success') {
         this.setState({ registerSuccess: true });
       } else {
-        this.setState({ ErrMsg: data.details });
+        // this.setState({ ErrMsg: data.details });
       }
     });
   };

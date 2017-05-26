@@ -40,11 +40,8 @@ export const getLogin = info =>
     data: info,
     url: '/auth/login',
   }).then((response) => {
-    console.log(info);
-    // console.log(response);
     if (response.data.status === 'success') {
       localStorage.setItem('jwtToken', response.data.token);
-      console.log(localStorage);
     }
     return response;
   });
@@ -52,6 +49,13 @@ export const getLogin = info =>
 export const getForgetPassword = info =>
   api({
     method: 'POST',
+    data: info,
+    url: '/auth/forgetpassword',
+  });
+
+export const getResetPassword = info =>
+  api({
+    method: 'PUT',
     data: info,
     url: '/auth/resetpassword',
   });
