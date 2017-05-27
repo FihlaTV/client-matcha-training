@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import { InputText } from '../InputText';
 import { getRegister } from '../../CallApi/';
@@ -24,7 +25,11 @@ class Register extends Component {
     getRegister(info).then(({ data }) => {
       console.log(data);
       if (data.status === 'success') {
-        this.setState({ registerSuccess: true });
+        this.props.addFlashMessage({
+          type: 'success',
+          text: 'You signed up succesfully. Welcome!',
+        });
+        // this.setState({ registerSuccess: true });
       } else {
         // this.setState({ ErrMsg: data.details });
       }
@@ -65,5 +70,7 @@ class Register extends Component {
     );
   }
 }
-
+Register.propTypes = {
+  addFlashMessage: PropTypes.PropTypes.func.isRequired,
+};
 export default Register;
