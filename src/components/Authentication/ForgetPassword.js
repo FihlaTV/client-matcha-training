@@ -21,7 +21,7 @@ class ForgetPassword extends Component {
     const formData = { email: this.state.email };
     getForgetPassword(formData).then(({ data }) => {
       if (data.status === 'success') {
-        // create();
+        create({ type: 'success', details: 'Success Go Check Your Mail' });
       } else {
         create({ type: 'err', details: data.details });
       }

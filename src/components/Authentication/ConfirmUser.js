@@ -15,6 +15,14 @@ class ConfirmUser extends Component {
     token: '',
   };
 
+  componentWillMount = () => {
+    if (this.props.location.state) {
+      const { create } = this.props.actions.flashMessage;
+      const { state: { msg } } = this.props.location;
+      create({ type: 'success', details: msg });
+    }
+  };
+
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
@@ -25,8 +33,10 @@ class ConfirmUser extends Component {
     const { create } = this.props.actions.flashMessage;
     confirmUser(info).then(({ data }) => {
       if (data.status === 'success') {
+        console.log('test');
         this.setState({ Confirmed: true });
       } else {
+        console.log('ok', data);
         create({ type: 'err', details: data.details });
       }
     });
@@ -67,6 +77,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 ConfirmUser.propTypes = {
+  location: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
