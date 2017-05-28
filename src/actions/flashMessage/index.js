@@ -1,6 +1,13 @@
-import { ADD_FLASH_MESSAGE } from './types';
+import { ADD_FLASH_MESSAGE, REMOVE_FLASH_MESSAGE } from '../types';
 
-export const addFlashMessage = message => ({
+export const create = message => ({
   type: ADD_FLASH_MESSAGE,
-  message,
+  payload: {
+    ...message,
+  },
+});
+
+export const remove = () => ({
+  type: REMOVE_FLASH_MESSAGE,
+  payload: {},
 });

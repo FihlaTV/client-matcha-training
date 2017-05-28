@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { PropTypes } from 'prop-types';
+import allActions from '../../actions';
 import { InputText } from '../InputText';
 import { getForgetPassword } from '../../CallApi';
 
@@ -14,19 +17,18 @@ class ForgetPassword extends Component {
 
   Query = (e) => {
     e.preventDefault();
+    const { create } = this.props.actions.flashMessage;
     const formData = { email: this.state.email };
     getForgetPassword(formData).then(({ data }) => {
-      console.log(data);
-      // if (data.status === 'success') {
-      //   con
-      // } else {
-      //   // this.setState({ errmsg: data.details });
-      // }
+      if (data.status === 'success') {
+        // create();
+      } else {
+        create({ type: 'err', details: data.details });
+      }
     });
   };
 
   render() {
-    if (this.state.isUserLoggedIn === true) return <Redirect to="" />;
     return (
       <div className="Login">
         <h1>Forget Password</h1>
@@ -44,4 +46,18 @@ class ForgetPassword extends Component {
   }
 }
 
-export default ForgetPassword;
+const mapStateToProps = ({ flashMessage }) => ({
+  flashMessage,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    flashMessage: bindActionCreators(allActions.flashMessage, dispatch),
+  },
+});
+
+ForgetPassword.propTypes = {
+  actions: PropTypes.object.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ForgetPassword);

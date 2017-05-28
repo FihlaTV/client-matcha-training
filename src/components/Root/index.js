@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { checkAuthentication } from '../../CallApi';
-import { ErrorMsg, SuccessMsg } from '../Flash';
 
 class Root extends Component {
   state = {
@@ -26,8 +25,6 @@ class Root extends Component {
     const { pathname } = this.props.location;
     return (
       <div>
-        <ErrorMsg msg="d" />
-        <SuccessMsg msg="d" />
         {isUserLoggedIn === false &&
           pathname.match(/^\/auth\/?/) === null &&
           <Redirect to="/auth" />}

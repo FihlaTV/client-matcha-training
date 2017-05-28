@@ -31,4 +31,5 @@ const Authentication = ({ match: { path } }) => (
 Authentication.propTypes = {
   match: PropTypes.object.isRequired,
 };
+
 export default Authentication;

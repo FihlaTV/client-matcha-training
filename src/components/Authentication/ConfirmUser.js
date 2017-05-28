@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { InputText } from '../InputText';
 import { confirmUser } from '../../CallApi';
+import allActions from '../../actions';
 
 class ConfirmUser extends Component {
   state = {
@@ -19,11 +22,12 @@ class ConfirmUser extends Component {
   Query = (e) => {
     e.preventDefault();
     const info = _.pick(this.state, ['login', 'token']);
+    const { create } = this.props.actions.flashMessage;
     confirmUser(info).then(({ data }) => {
       if (data.status === 'success') {
         this.setState({ Confirmed: true });
       } else {
-        // this.setState({ ErrMsg: data.details });
+        create({ type: 'err', details: data.details });
       }
     });
   };
@@ -52,8 +56,18 @@ class ConfirmUser extends Component {
   }
 }
 
+const mapStateToProps = ({ flashMessage }) => ({
+  flashMessage,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    flashMessage: bindActionCreators(allActions.flashMessage, dispatch),
+  },
+});
+
 ConfirmUser.propTypes = {
-  location: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
-export default ConfirmUser;
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmUser);

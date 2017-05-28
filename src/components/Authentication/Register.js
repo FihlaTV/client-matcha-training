@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router';
+import allActions from '../../actions';
 import { InputText } from '../InputText';
 import { getRegister } from '../../CallApi/';
 
@@ -22,16 +25,12 @@ class Register extends Component {
   Query = (e) => {
     e.preventDefault();
     const info = _.omit(this.state, ['registerSuccess', 'ErrMsg']);
+    const { create } = this.props.actions.flashMessage;
     getRegister(info).then(({ data }) => {
-      console.log(data);
       if (data.status === 'success') {
-        this.props.addFlashMessage({
-          type: 'success',
-          text: 'You signed up succesfully. Welcome!',
-        });
-        // this.setState({ registerSuccess: true });
+        this.setState({ registerSuccess: true });
       } else {
-        // this.setState({ ErrMsg: data.details });
+        create({ type: 'err', details: data.details });
       }
     });
   };
@@ -70,7 +69,18 @@ class Register extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ flashMessage }) => ({
+  flashMessage,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    flashMessage: bindActionCreators(allActions.flashMessage, dispatch),
+  },
+});
+
 Register.propTypes = {
-  addFlashMessage: PropTypes.PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
 };
-export default Register;
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

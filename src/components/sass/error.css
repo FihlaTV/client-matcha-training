@@ -1,15 +1,16 @@
 .Errormsg{
   width: 100%;
-  padding: 20px;
   text-align: center;
   color:white;
-  background: rgba(255, 97, 86, 1);
 }
-
-.Successmsg{
-  width: 100%;
+.close{
+  decoration: none;
+  cursor: pointer;
+  padding: 4px;
+  float: right;
+}
+.msg{
+  cursor: default;
   padding: 20px;
-  text-align: center;
-  color:white;
-  background: rgba(78, 186, 56, 1);
+
 }

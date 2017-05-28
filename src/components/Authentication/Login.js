@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { getLogin } from '../../CallApi';
 import { InputText } from '../InputText';
+import allActions from '../../actions';
 
 class Login extends Component {
   state = {
@@ -17,14 +20,14 @@ class Login extends Component {
 
   Query = (evt) => {
     evt.preventDefault();
+    const { create } = this.props.actions.flashMessage;
     const formData = { login: this.state.login, password: this.state.password };
     getLogin(formData).then(({ data }) => {
-      console.log(formData);
-      // if (data.status === 'success') {
-      //
-      // this.setState({ isUserLoggedIn: true });
-      // } else {
-      // }
+      if (data.status === 'success') {
+        this.setState({ isUserLoggedIn: true });
+      } else {
+        create({ type: 'err', details: data.details });
+      }
     });
   };
 
@@ -56,8 +59,18 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = ({ flashMessage }) => ({
+  flashMessage,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    flashMessage: bindActionCreators(allActions.flashMessage, dispatch),
+  },
+});
+
 Login.propTypes = {
-  location: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
