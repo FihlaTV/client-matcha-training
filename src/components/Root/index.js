@@ -23,12 +23,15 @@ class Root extends Component {
   render() {
     const { isUserLoggedIn } = this.state;
     const { pathname } = this.props.location;
+    // console.log(pathname);
     return (
       <div>
         {isUserLoggedIn === false &&
           pathname.match(/^\/auth\/?/) === null &&
           <Redirect to="/auth" />}
-        {isUserLoggedIn === true && <Redirect to="/home" />}
+        {isUserLoggedIn === true &&
+          pathname.match(/^\/auth\/?/) !== null &&
+          <Redirect to="/home" />}
       </div>
     );
   }

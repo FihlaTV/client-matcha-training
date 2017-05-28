@@ -34,6 +34,12 @@ export const confirmUser = info =>
     url: '/auth/confirmuser',
   });
 
+export const getIp = () =>
+  api({
+    method: 'GET',
+    url: 'https://api.ipify.org/',
+  });
+
 export const getLogin = info =>
   api({
     method: 'POST',

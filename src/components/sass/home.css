@@ -1,10 +1,12 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
 *, *:before, *:after {
   box-sizing: border-box; }
 
 body {
   background: url("./background.png") no-repeat center fixed;
   background-size: cover;
-  font-family: 'Titillium Web', sans-serif; }
+
+  font: 400 17px/2em 'Source Sans Pro', sans-serif; }
 
 .Navheaderbar {
   list-style: none;

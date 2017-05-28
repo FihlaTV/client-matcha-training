@@ -14,6 +14,14 @@ class Login extends Component {
     isUserLoggedIn: false,
   };
 
+  componentWillMount = () => {
+    if (this.props.location.state) {
+      const { create } = this.props.actions.flashMessage;
+      const { state: { msg } } = this.props.location;
+      create({ type: 'success', details: msg });
+    }
+  };
+
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
@@ -25,6 +33,7 @@ class Login extends Component {
     getLogin(formData).then(({ data }) => {
       if (data.status === 'success') {
         this.setState({ isUserLoggedIn: true });
+        window.location.reload();
       } else {
         create({ type: 'err', details: data.details });
       }
@@ -70,6 +79,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Login.propTypes = {
+  location: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
 };
 

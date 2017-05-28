@@ -3,6 +3,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
 import { Redirect } from 'react-router';
 import allActions from '../../actions';
 import { InputText } from '../InputText';
@@ -24,14 +25,17 @@ class Register extends Component {
 
   Query = (e) => {
     e.preventDefault();
-    const info = _.omit(this.state, ['registerSuccess', 'ErrMsg']);
+    let info = _.omit(this.state, ['registerSuccess', 'ErrMsg']);
     const { create } = this.props.actions.flashMessage;
-    getRegister(info).then(({ data }) => {
-      if (data.status === 'success') {
-        this.setState({ registerSuccess: true });
-      } else {
-        create({ type: 'err', details: data.details });
-      }
+    axios.get('https://api.ipify.org/').then((response) => {
+      info = { ...info, ip: response.data };
+      getRegister(info).then(({ data }) => {
+        if (data.status === 'success') {
+          this.setState({ registerSuccess: true });
+        } else {
+          create({ type: 'err', details: data.details });
+        }
+      });
     });
   };
 
