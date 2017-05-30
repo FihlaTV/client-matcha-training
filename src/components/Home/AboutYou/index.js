@@ -4,19 +4,26 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import allActions from '../../../actions';
 import SelectBox from '../../SelectBox';
+import InputText from '../../InputText';
+import '../../sass/home.css';
 
 class AboutYou extends Component {
   state = {
-    labelName: '',
+    sexe: '',
+    menu: 0,
+    bio: '',
+    orientation: '',
   };
 
-  // handleChange = ({ target: { name, value } }) => {
   handleChange = ({ target: { name, value } }) => {
-    console.log(name, value);
-    // const label = document.querySelector('.label-desc');
-    //   label.value = value;
-    //   // console.log(label);
-    //   this.setState({ [name]: value });
+    console.log('HandleChange = ', name, value);
+    if (value.match(/^Choose/)) this.setState({ [name]: '' });
+    else this.setState({ [name]: value });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state);
   };
 
   Query = (evt) => {
@@ -24,13 +31,36 @@ class AboutYou extends Component {
   };
 
   render() {
+    console.log('Render ', this.state);
+    const { menu } = this.state;
+    console.log(this.props);
     return (
       <div className="Login">
-        <h1>Get to know you more!</h1>
-        <form onChange={this.handleChange}>
-          <SelectBox name="country" />
-          <SelectBox name="" />
+        <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
+          {menu === 0 &&
+            <div>
+              <SelectBox name="sexe" select={['Male', 'Female']} />
+              <SelectBox name="orientation" select={['Bisexual', 'Homosexual', 'Heterosexual']} />
+            </div>}
+          {menu === 1 &&
+            <div>
+              <InputText name="bio" placeholder="Type Your Bio Here - Max 2000 characteres" />
+              <InputText name="Tags" placeholder="Tags" />
+            </div>}
+          {menu === 2 && <InputText name="img" placeholder="Imf" />}
         </form>
+        <ul className="Navheaderbar">
+          <li className="Navheaderbrand">
+            <a className="Navheaderbar active" onClick={() => this.setState({ menu: menu - 1 })}>
+              Previous
+            </a>
+          </li>
+          <li className="Navheaderbrand">
+            <a className="Navheaderbar active" onClick={() => this.setState({ menu: menu + 1 })}>
+              Next
+            </a>
+          </li>
+        </ul>
       </div>
     );
   }

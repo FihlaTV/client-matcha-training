@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import { InputText } from '../InputText';
+import InputText from '../InputText';
 import { confirmUser } from '../../CallApi';
 import allActions from '../../actions';
 

@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import allActions from '../../actions';
-import { InputText } from '../InputText';
+import InputText from '../InputText';
 import { getRegister } from '../../CallApi/';
 
 class Register extends Component {

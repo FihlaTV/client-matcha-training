@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogin } from '../../CallApi';
-import { InputText } from '../InputText';
+import InputText from '../InputText';
 import allActions from '../../actions';
 
 class Login extends Component {

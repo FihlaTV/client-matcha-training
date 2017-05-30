@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { PropTypes } from 'prop-types';
 import allActions from '../../actions';
-import { InputText } from '../InputText';
+import InputText from '../InputText';
 import { getForgetPassword } from '../../CallApi';
 
 class ForgetPassword extends Component {
