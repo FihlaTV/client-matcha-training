@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogin } from '../../CallApi';
-import InputText from '../InputText';
+import Ui from '../../ui';
 import allActions from '../../actions';
 
 class Login extends Component {
@@ -46,8 +46,8 @@ class Login extends Component {
       <div className="Login">
         <h1>Log In</h1>
         <form onChange={this.handleChange}>
-          <InputText placeholder="User Name" name="login" />
-          <InputText type="password" placeholder="Password" name="password" />
+          <Ui.InputText placeholder="User Name" name="login" />
+          <Ui.InputText type="password" placeholder="Password" name="password" />
           <input
             type="submit"
             className="button button-block"

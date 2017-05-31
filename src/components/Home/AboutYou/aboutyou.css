@@ -1,0 +1,20 @@
+.bioarea {
+  margin: 10px 0 10px 0;
+}
+.tagsField {
+  list-style: none;
+  padding: 0;
+
+  width:auto;
+  background-color: red;
+  display: flex;
+  flex-wrap: wrap;
+  cursor: default;
+justify-content:space-around;
+}
+.tagField {
+  user-select: none;
+  decoration: none;
+  margin: 0 5px 0 5px;
+  flex-basis:0;
+}

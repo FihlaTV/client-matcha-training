@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { PropTypes } from 'prop-types';
 import allActions from '../../actions';
-import InputText from '../InputText';
+import Ui from '../../ui';
 import { getForgetPassword } from '../../CallApi';
 
 class ForgetPassword extends Component {
@@ -33,7 +33,7 @@ class ForgetPassword extends Component {
       <div className="Login">
         <h1>Forget Password</h1>
         <form onChange={this.handleChange}>
-          <InputText type="email" placeholder="E-Mail" name="email" />
+          <Ui.InputText type="email" placeholder="E-Mail" name="email" />
           <input
             type="submit"
             className="button button-block"

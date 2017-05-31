@@ -3,27 +3,27 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import allActions from '../../../actions';
-import SelectBox from '../../SelectBox';
-import InputText from '../../InputText';
+import UploadImage from './UploadImage';
+import Bio from './Bio';
+import Sex from './Sex';
 import '../../sass/home.css';
 
 class AboutYou extends Component {
   state = {
     sexe: '',
-    menu: 0,
+    menu: 1,
     bio: '',
     orientation: '',
   };
 
   handleChange = ({ target: { name, value } }) => {
-    console.log('HandleChange = ', name, value);
+    // console.log('HandleChange = ', name, value);
     if (value.match(/^Choose/)) this.setState({ [name]: '' });
     else this.setState({ [name]: value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
   };
 
   Query = (evt) => {
@@ -31,34 +31,27 @@ class AboutYou extends Component {
   };
 
   render() {
-    console.log('Render ', this.state);
     const { menu } = this.state;
-    console.log(this.props);
     return (
       <div className="Login">
         <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
-          {menu === 0 &&
-            <div>
-              <SelectBox name="sexe" select={['Male', 'Female']} />
-              <SelectBox name="orientation" select={['Bisexual', 'Homosexual', 'Heterosexual']} />
-            </div>}
-          {menu === 1 &&
-            <div>
-              <InputText name="bio" placeholder="Type Your Bio Here - Max 2000 characteres" />
-              <InputText name="Tags" placeholder="Tags" />
-            </div>}
-          {menu === 2 && <InputText name="img" placeholder="Imf" />}
+          {menu === 2 && <Sex />}
+          {menu === 1 && <Bio />}
+          {menu === 3 && <UploadImage />}
+          {menu === 4 && <div>dd</div>}
         </form>
         <ul className="Navheaderbar">
           <li className="Navheaderbrand">
-            <a className="Navheaderbar active" onClick={() => this.setState({ menu: menu - 1 })}>
-              Previous
-            </a>
+            {menu !== 1 &&
+              <a className="Navheaderbar active" onClick={() => this.setState({ menu: menu - 1 })}>
+                Previous
+              </a>}
           </li>
           <li className="Navheaderbrand">
-            <a className="Navheaderbar active" onClick={() => this.setState({ menu: menu + 1 })}>
-              Next
-            </a>
+            {menu !== 3 &&
+              <a className="Navheaderbar active" onClick={() => this.setState({ menu: menu + 1 })}>
+                Next
+              </a>}
           </li>
         </ul>
       </div>
