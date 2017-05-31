@@ -7,7 +7,7 @@ import Root from './components/Root';
 import Authentication from './components/Authentication';
 import Home from './components/Home';
 import allActions from './actions';
-import { ErrorMsg } from './components/Flash';
+import { ErrorMsg } from './FlashMessage';
 
 class App extends Component {
   state = {};

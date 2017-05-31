@@ -23,8 +23,13 @@ body {
 .Navheaderbar {
   list-style: none;
   padding: 0;
-  margin: 0 0 40px 0; }
-
+  margin: 0 0 30px 0;
+  margin: auto;
+}
+.Navheaderbar {
+  display: flex;
+    justify-content: center;
+}
 .Navheaderbar:after {
   content: "";
   display: table;
@@ -32,16 +37,17 @@ body {
 
 .Navheaderbar li a {
   display: block;
+  width: 200px;
   text-decoration: none;
   padding: 15px;
   background: rgba(160, 179, 176, 0.25);
   color: #a0b3b0;
   font-size: 20px;
   float: left;
-  width: 50%;
+  /*width: 50%;*/
   text-align: center;
   cursor: pointer;
-    transition: .5s ease; }
+  transition: .5s ease; }
 
 .Navheaderbar li a:hover {
   background: rgba(255, 96, 85, 0.9);

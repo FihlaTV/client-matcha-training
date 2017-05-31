@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import allActions from '../../actions';
-import InputText from '../InputText';
+import Ui from '../../ui';
 import { getRegister } from '../../CallApi/';
 
 class Register extends Component {
@@ -46,12 +46,12 @@ class Register extends Component {
         <h1>Sign Up</h1>
         <form onChange={this.handleChange}>
           <div className="top-row">
-            <InputText placeholder="Last Name" name="lastname" />
-            <InputText placeholder="First Name" name="firstname" />
+            <Ui.InputText placeholder="Last Name" name="lastname" />
+            <Ui.InputText placeholder="First Name" name="firstname" />
           </div>
-          <InputText placeholder="User Name" name="login" />
-          <InputText type="email" placeholder="E-mail" name="email" />
-          <InputText type="password" placeholder="Password" name="password" />
+          <Ui.InputText placeholder="User Name" name="login" />
+          <Ui.InputText type="email" placeholder="E-mail" name="email" />
+          <Ui.InputText type="password" placeholder="Password" name="password" />
           <input
             type="submit"
             className="button button-block"

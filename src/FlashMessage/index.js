@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../sass/error.css';
+import './flashmessage.css';
 
 // const div
 export const ErrorMsg = ({ msg, type, remove }) => {

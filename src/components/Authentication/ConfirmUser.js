@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import InputText from '../InputText';
+import Ui from '../../ui';
 import { confirmUser } from '../../CallApi';
 import allActions from '../../actions';
 
@@ -48,8 +48,8 @@ class ConfirmUser extends Component {
       <div className="Login">
         <h1>Confirm User</h1>
         <form onChange={this.handleChange}>
-          <InputText placeholder="User Name" name="login" />
-          <InputText placeholder="Enter the Code" name="token" />
+          <Ui.InputText placeholder="User Name" name="login" />
+          <Ui.InputText placeholder="Enter the Code" name="token" />
           <button type="submit" className="button button-block" onClick={this.Query}>
             Send
           </button>
