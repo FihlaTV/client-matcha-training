@@ -13,32 +13,40 @@ class AboutYou extends Component {
     sexe: '',
     menu: 1,
     bio: '',
+    img: '',
+    tags: [],
     orientation: '',
   };
 
   handleChange = ({ target: { name, value } }) => {
-    // console.log('HandleChange = ', name, value);
     if (value.match(/^Choose/)) this.setState({ [name]: '' });
-    else this.setState({ [name]: value });
+    else if (name !== 'tags') this.setState({ [name]: value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log(this.state);
   };
 
   Query = (evt) => {
     evt.preventDefault();
   };
-
+  handleCheck = ({ target: { value, name }, keyCode }) => {
+    if (name === 'tags' && keyCode === 13 && !value.match(/^\s*$/)) {
+      const { tags } = this.state;
+      console.log(value);
+      this.state.tags.push(value);
+    }
+  };
   render() {
     const { menu } = this.state;
+    console.log(this.state);
     return (
       <div className="Login">
-        <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
-          {menu === 2 && <Sex />}
-          {menu === 1 && <Bio />}
+        <form onChange={this.handleChange} onKeyUp={this.handleCheck} onSubmit={this.handleSubmit}>
+          {menu === 1 && <Sex />}
+          {menu === 2 && <Bio />}
           {menu === 3 && <UploadImage />}
-          {menu === 4 && <div>dd</div>}
         </form>
         <ul className="Navheaderbar">
           <li className="Navheaderbrand">

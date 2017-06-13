@@ -4,13 +4,24 @@
 .tagsField {
   list-style: none;
   padding: 0;
-
   width:auto;
-  background-color: red;
   display: flex;
   flex-wrap: wrap;
   cursor: default;
 justify-content:space-around;
+}
+.drop_zone {
+  text-align: center;
+  border: 3px dashed rgba(160, 179, 176, 0.25);
+  border-radius: 10px;
+  width: 250px;
+  color: rgba(160, 179, 176, 0.75);
+  height: 250px;
+  user-select: none;
+  /*line-height: 250px;*/
+}
+.fileinput {
+  opacity: 0;
 }
 .tagField {
   user-select: none;

@@ -31,7 +31,7 @@ class Root extends Component {
           <Redirect to="/auth" />}
         {isUserLoggedIn === true &&
           pathname.match(/^\/auth\/?/) !== null &&
-          <Redirect to="/home" />}
+          <Redirect to="/home/aboutyou" />}
       </div>
     );
   }

@@ -7,11 +7,11 @@ class Bio extends Component {
     tags: [],
   };
 
-  handleChange = ({ target: { value } }) => {
+  handleChanges = ({ target: { value } }) => {
     this.setState({ tag: value });
   };
 
-  handleSubmit = ({ target: { value }, keyCode }) => {
+  handleSubmits = ({ target: { value }, keyCode }) => {
     // console.log(value);
     if (keyCode === 13 && !value.match(/^\s*$/)) {
       // console.log('dedans[', value, ']');
@@ -30,7 +30,7 @@ class Bio extends Component {
 
   render() {
     const { tag, tags } = this.state;
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div>
         <textarea
@@ -45,8 +45,8 @@ class Bio extends Component {
           className="bioarea"
           name="tags"
           placeholder="Tags"
-          onKeyUp={this.handleSubmit}
-          onChange={this.handleChange}
+          onKeyUp={this.handleSubmits}
+          onChange={this.handleChanges}
           value={tag}
         />
         <ul className="tagsField">

@@ -15,6 +15,7 @@ class Login extends Component {
   };
 
   componentWillMount = () => {
+    console.log(this.props.location);
     if (this.props.location.state) {
       const { create } = this.props.actions.flashMessage;
       const { state: { msg } } = this.props.location;

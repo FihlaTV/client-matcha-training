@@ -9,6 +9,7 @@ import { getResetPassword } from '../../CallApi';
 
 class ResetPassword extends Component {
   state = {
+    registerSuccess: false,
     password: '',
   };
 
@@ -21,6 +22,7 @@ class ResetPassword extends Component {
     const { create } = this.props.actions.flashMessage;
     const parsed = queryString.parse(this.props.location.search);
     const form = { password: this.state.password, token: parsed.token };
+    // console.log(form);
     getResetPassword(form).then(({ data }) => {
       if (data.status === 'success') {
         this.setState({ registerSuccess: true });
@@ -29,9 +31,17 @@ class ResetPassword extends Component {
       }
     });
   };
-
   render() {
-    if (this.state.isUserLoggedIn === true) return <Redirect to="" />;
+    if (this.state.registerSuccess === true) {
+      return (
+        <Redirect
+          to={{
+            pathname: 'login',
+            state: { Confirmed: true, msg: 'Successfully Confirmed - You can now Login' },
+          }}
+        />
+      );
+    }
     return (
       <div className="Login">
         <h1>Reset Password</h1>
@@ -39,12 +49,7 @@ class ResetPassword extends Component {
           <div className="field-wrap">
             <input type="password" placeholder="Password" name="password" />
           </div>
-          <input
-            type="submit"
-            className="button button-block"
-            value="Log In"
-            onClick={this.Query}
-          />
+          <input type="submit" className="button button-block" value="Send!" onClick={this.Query} />
         </form>
       </div>
     );

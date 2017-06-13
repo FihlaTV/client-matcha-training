@@ -12,7 +12,7 @@ const Authentication = ({ match: { path } }) => (
   <div className="Home">
     <div className="Mainform">
       <ul className="Navheaderbar">
-        <li className="Navheaderbrand active">
+        <li className="Navheaderbrand">
           <NavLink activeClassName="active" to={`${path}/register`}>Sign Up</NavLink>
         </li>
         <li className="Navheaderbrand">

@@ -34,12 +34,7 @@ class ForgetPassword extends Component {
         <h1>Forget Password</h1>
         <form onChange={this.handleChange}>
           <Ui.InputText type="email" placeholder="E-Mail" name="email" />
-          <input
-            type="submit"
-            className="button button-block"
-            value="Log In"
-            onClick={this.Query}
-          />
+          <input type="submit" className="button button-block" value="Send!" onClick={this.Query} />
         </form>
       </div>
     );
